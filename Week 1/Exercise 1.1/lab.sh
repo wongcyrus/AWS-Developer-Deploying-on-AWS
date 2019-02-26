@@ -6,6 +6,10 @@ sudo service mysqld start
 sudo chkconfig mysqld on
 mysqladmin -u root password P@ssw0rd
 sed -i 's/REPLACE_WITH_WEB_USER_PASSWORD/P@ssw0rd/g' SetupScripts/create_schema.sql
-mysql -h localhost -u root -p < create_schema.sql
-sed -i 's/REPLACE_WITH_ROOT_PASSWORD/P@ssw0rd/g' SetupScripts/database_populate.py
-python3 database_populate.py
+mysql -h localhost -u root -pP@ssw0rd < SetupScripts/create_schema.sql
+PASSWORD=P@ssw0rd python3 SetupScripts/database_populate.py
+export DATABASE_HOST=localhost
+export DATABASE_USER=web_user
+export DATABASE_PASSWORD=P@ssw0rd
+export DATABASE_DB_NAME=routes
+python3 FlaskApp/application.py

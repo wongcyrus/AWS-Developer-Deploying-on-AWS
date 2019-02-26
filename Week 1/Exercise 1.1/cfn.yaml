@@ -46,4 +46,6 @@ Outputs:
     Description: AWSAccessKeyId of new user.
   SecretKey:
     Value: !GetAtt IAMStack.Outputs.SecretKey
-    Description: AWSSecretKey of new user.    
+    Description: AWSSecretKey of new user.
+  SignInUrl:
+    Value: !Sub https://${AWSAccountId}.signin.aws.amazon.com/console
