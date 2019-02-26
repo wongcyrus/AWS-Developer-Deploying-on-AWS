@@ -17,12 +17,12 @@ Parameters:
     Type: String
 Resources:
   Application:
+    Type: AWS::ElasticBeanstalk::Application
     Properties:
-      Type: AWS::ElasticBeanstalk::Application
       ApplicationVersions:
         - Description: Version 1.0
           SourceBundle:
-            S3Bucket: !Sub 'https://s3.amazonaws.com/${SourceBucket}/iam.yaml' 
+            S3Bucket: !Ref SourceBucket
             S3Key: eb.zip
           VersionLabel: Initial Version
       Description: AWS Elastic Beanstalk Python Sample Application
@@ -30,9 +30,12 @@ Resources:
   Environment:
     Type: AWS::ElasticBeanstalk::Environment
     Properties:
-      ApplicationName: routes-demo
+      ApplicationName: !Ref Application
       Description: AWS Elastic Beanstalk Environment running Python Sample Application
       PlatformArn: !Ref PlatformArn
-      SolutionStackName: !Ref SolutionStackName
       VersionLabel: Initial Version
+Outputs:
+  ElasticBeanstalkUrl:
+    Value: !GetAtt Environment.EndpointURL
+
 

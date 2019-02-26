@@ -48,4 +48,6 @@ Outputs:
     Value: !GetAtt IAMStack.Outputs.SecretKey
     Description: AWSSecretKey of new user.
   SignInUrl:
-    Value: !Sub https://${AWSAccountId}.signin.aws.amazon.com/console
+    Value: !Sub https://${AWS::AccountId}.signin.aws.amazon.com/console
+  UserName:
+    Value: !GetAtt IAMStack.Outputs.EdXDeployingUser
