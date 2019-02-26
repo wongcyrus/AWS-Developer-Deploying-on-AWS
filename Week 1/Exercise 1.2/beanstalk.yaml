@@ -1,0 +1,38 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Metadata: 
+  License: Apache-2.0
+Description: Deploying on AWS Stack Beanstalk
+Parameters:
+  SourceBucket:
+    Type: String
+    Description: Source Bucket with nested cloudformation template
+  Password:
+    NoEcho: 'true'
+    Type: String
+    Description: New account password
+    MinLength: '1'
+    MaxLength: '41'
+    ConstraintDescription: the password must be between 1 and 41 characters
+  PlatformArn:
+    Type: String
+Resources:
+  Application:
+    Properties:
+      Type: AWS::ElasticBeanstalk::Application
+      ApplicationVersions:
+        - Description: Version 1.0
+          SourceBundle:
+            S3Bucket: !Sub 'https://s3.amazonaws.com/${SourceBucket}/iam.yaml' 
+            S3Key: eb.zip
+          VersionLabel: Initial Version
+      Description: AWS Elastic Beanstalk Python Sample Application
+
+  Environment:
+    Type: AWS::ElasticBeanstalk::Environment
+    Properties:
+      ApplicationName: routes-demo
+      Description: AWS Elastic Beanstalk Environment running Python Sample Application
+      PlatformArn: !Ref PlatformArn
+      SolutionStackName: !Ref SolutionStackName
+      VersionLabel: Initial Version
+
