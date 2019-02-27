@@ -1,0 +1,11 @@
+#!/bin/bash
+cd "../Week 2"
+# sh "prerequisite.sh"
+cd "Exercise 2.1"
+sh "deployment.sh"
+sh "localgit.sh"
+cd "../Exercise 2.2"
+sh "lab.sh"
+sh "deployment.sh"
+cd "../Exercise 2.3"
+sh "deployment.sh"
