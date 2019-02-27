@@ -1,6 +1,6 @@
 #!/bin/bash
 cd "../Week 2"
-# sh "prerequisite.sh"
+sh "prerequisite.sh"
 cd "Exercise 2.1"
 sh "deployment.sh"
 sh "localgit.sh"

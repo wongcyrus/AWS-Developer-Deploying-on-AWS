@@ -7,7 +7,6 @@ aws s3 sync . s3://$SourceBucket --exclude "*" --include "*.yaml"
 aws cloudformation create-stack --stack-name edx-project-codepipeline-stack --template-body file://codepipeline.yaml \
 --capabilities CAPABILITY_NAMED_IAM \
 --parameters ParameterKey=SourceBucket,ParameterValue=$SourceBucket \
-ParameterKey=CodeCommitRepoName,ParameterValue=edX-Deploying \
-ParameterKey=CodeBuildProjectName,ParameterValue=UnitTests
+ParameterKey=CodeCommitRepoName,ParameterValue=edX-Deploying 
 aws cloudformation wait stack-create-complete --stack-name edx-project-codepipeline-stack
 echo "CodePipeline Stack created!"

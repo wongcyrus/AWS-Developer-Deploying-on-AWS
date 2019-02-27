@@ -7,8 +7,6 @@ Parameters:
     Type: String
   CodeCommitRepoName:
     Type: String
-  CodeBuildProjectName:
-    Type: String    
 Resources:
   AppPipeline: 
     Type: AWS::CodePipeline::Pipeline
@@ -121,7 +119,7 @@ Resources:
                 - codebuild
                 - !Ref 'AWS::Region'
                 - !Ref 'AWS::AccountId'
-                - !Sub project/${CodeBuildProjectName}
+                - project/UnitTests
         PolicyName: !Join
           - '-'
           - - !Ref 'AWS::StackName'
