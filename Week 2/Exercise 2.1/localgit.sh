@@ -11,4 +11,12 @@ git add .gitignore
 git add .
 git status
 git commit -m "first commit of the routes application"
+GitCloneUrlHttp=$(aws cloudformation describe-stacks --stack-name edx-project-codecommit-stack \
+--query 'Stacks[0].Outputs[?OutputKey==`GitCloneUrlHttp`].OutputValue' --output text)
+git remote add origin $GitCloneUrlHttp
+git config --global credential.helper '!aws codecommit credential-helper $@'
+git config --global credential.UseHttpPath true
+git config --list
+git push origin dev
+
 # git log
