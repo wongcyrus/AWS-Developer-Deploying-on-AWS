@@ -4,11 +4,11 @@ SourceBucket=sourcebucketname$AWSAccountId
 aws s3api create-bucket --bucket $SourceBucket
 sleep 5
 aws s3 sync . s3://$SourceBucket --exclude "*" --include "*.yaml"
-aws cloudformation create-stack --stack-name edx-project-codecommit-stack --template-body file://codecommit.yaml \
---capabilities CAPABILITY_NAMED_IAM 
-aws cloudformation wait stack-create-complete --stack-name edx-project-codecommit-stack
 GitCloneUrlHttp=$(aws cloudformation describe-stacks --stack-name edx-project-codecommit-stack \
 --query 'Stacks[0].Outputs[?OutputKey==`GitCloneUrlHttp`].OutputValue' --output text)
-export GitCloneUrlHttp=GitCloneUrlHttp
-echo "Git Clone Url"
-echo "$GitCloneUrlHttp"
+aws cloudformation create-stack --stack-name edx-project-codebuild-stack --template-body file://codebuild.yaml \
+--capabilities CAPABILITY_NAMED_IAM \
+--parameters ParameterKey=SourceBucket,ParameterValue=$SourceBucket \
+ParameterKey=CodeCommitRepoName,ParameterValue=edX-Deploying
+aws cloudformation wait stack-create-complete --stack-name edx-project-codebuild-stack
+echo "CodeBuild Stack created!"

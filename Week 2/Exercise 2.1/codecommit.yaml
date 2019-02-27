@@ -1,13 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Metadata: 
   License: Apache-2.0
-Description: Deploying on AWS Stack Beanstalk
-Parameters:
-  SourceBucket:
-    Type: String
-    Description: Source Bucket with nested cloudformation template
-  PlatformArn:
-    Type: String
+Description: Deploying on AWS Stack CodeCommit
 Resources:
   CodeCommit:
     Type: AWS::CodeCommit::Repository
