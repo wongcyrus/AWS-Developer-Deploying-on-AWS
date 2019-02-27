@@ -88,3 +88,4 @@ Resources:
                   - - 'arn:aws:s3:::'
                     - !Ref 'SourceBucket'
                     - /*
+
