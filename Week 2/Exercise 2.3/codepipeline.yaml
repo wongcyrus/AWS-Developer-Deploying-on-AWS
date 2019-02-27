@@ -1,0 +1,133 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Metadata: 
+  License: Apache-2.0
+Description: Deploying on AWS Stack CodePipeline
+Parameters:
+  SourceBucket:
+    Type: String
+  CodeCommitRepoName:
+    Type: String
+  CodeBuildProjectName:
+    Type: String    
+Resources:
+  AppPipeline: 
+    Type: AWS::CodePipeline::Pipeline
+    Properties:
+      Name: ci-cd-pipeline
+      RoleArn: !GetAtt CodePipelineTrustRole.Arn
+      Stages: 
+      - Name: Source
+        Actions:
+        - ActionTypeId:
+            Category: Source
+            Owner: AWS
+            Provider: CodeCommit
+            Version: 1
+          Configuration:
+            BranchName: dev
+            PollForSourceChanges: false
+            RepositoryName: !Ref CodeCommitRepoName
+          InputArtifacts: []
+          Name: Source
+          OutputArtifacts:
+          - Name: !Join
+            - '-'
+            - - !Ref 'AWS::StackName'
+              - SourceArtifact
+          RunOrder: 1
+      - Name: Build
+        Actions:
+        - ActionTypeId:
+            Category: Build
+            Owner: AWS
+            Provider: CodeBuild
+            Version: 1
+          Configuration:
+            ProjectName: UnitTests
+          InputArtifacts:
+          - Name: !Join
+            - '-'
+            - - !Ref 'AWS::StackName'
+              - SourceArtifact
+          Name: Build
+          OutputArtifacts:
+          - Name: !Join
+            - '-'
+            - - !Ref 'AWS::StackName'
+              - BuildArtifact
+          RunOrder: 1
+      ArtifactStore: 
+        Type: S3
+        Location: !Ref SourceBucket
+
+            
+  CodePipelineTrustRole:
+    Type: AWS::IAM::Role 
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+        - Action: sts:AssumeRole
+          Effect: Allow
+          Principal:
+            Service:
+            - codepipeline.amazonaws.com
+          Sid: 1
+      Path: /
+      Policies:
+      - PolicyDocument:
+          Statement:
+          - Action:
+            - s3:GetObject
+            - s3:GetObjectVersion
+            - s3:GetBucketVersioning
+            - s3:PutObject
+            Effect: Allow
+            Resource:
+            - !Join
+              - ''
+              - - 'arn:aws:s3:::'
+                - !Ref 'SourceBucket'
+            - !Join
+              - ''
+              - - 'arn:aws:s3:::'
+                - !Ref 'SourceBucket'
+                - /*
+          - Action:
+            - codecommit:CancelUploadArchive
+            - codecommit:GetBranch
+            - codecommit:GetCommit
+            - codecommit:GetUploadArchiveStatus
+            - codecommit:UploadArchive
+            Effect: Allow
+            Resource:
+            - !Join
+              - ':'
+              - - arn
+                - aws
+                - codecommit
+                - !Ref 'AWS::Region'
+                - !Ref 'AWS::AccountId'
+                - !Ref CodeCommitRepoName
+          - Action:
+            - codebuild:StartBuild
+            - codebuild:BatchGetBuilds
+            - codebuild:StopBuild
+            Effect: Allow
+            Resource:
+            - !Join
+              - ':'
+              - - arn
+                - aws
+                - codebuild
+                - !Ref 'AWS::Region'
+                - !Ref 'AWS::AccountId'
+                - !Sub project/${CodeBuildProjectName}
+        PolicyName: !Join
+          - '-'
+          - - !Ref 'AWS::StackName'
+            - CodePipelineRolePolicy
+      RoleName: !Join
+        - '-'
+        - - !Ref 'AWS::StackName'
+          - CodePipeline
+           

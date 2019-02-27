@@ -7,11 +7,13 @@ Parameters:
     Type: String
   CodeCommitRepoName:
     Type: String
+  CodeBuildProjectName:
+    Type: String     
 Resources:
   CodeBuildProject:
     Type: AWS::CodeBuild::Project
     Properties:
-      Name: UnitTests
+      Name: !Ref CodeBuildProjectName
       ServiceRole: !Ref CodeBuildRole
       Environment:
         Type: LINUX_CONTAINER
