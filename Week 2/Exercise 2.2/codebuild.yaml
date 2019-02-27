@@ -34,10 +34,6 @@ Resources:
         Path: 'codebuild'
         Type: S3        
       TimeoutInMinutes: 10
-      VpcConfig:
-        VpcId: !Ref CodeBuildVPC
-        Subnets: [!Ref CodeBuildSubnet]
-        SecurityGroupIds: [!Ref CodeBuildSecurityGroup]
       Cache:
         Type: S3
         Location: !Sub ${SourceBucket}/cache
@@ -57,18 +53,6 @@ Resources:
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
-              - Action:
-                - 'logs:*'
-                - 'ec2:CreateNetworkInterface'
-                - 'ec2:DescribeNetworkInterfaces'
-                - 'ec2:DeleteNetworkInterface'
-                - 'ec2:DescribeSubnets'
-                - 'ec2:DescribeSecurityGroups'
-                - 'ec2:DescribeDhcpOptions'
-                - 'ec2:DescribeVpcs'
-                - 'ec2:CreateNetworkInterfacePermission'
-                Effect: Allow
-                Resource: '*'
               - Action:
                 - codecommit:GitPull
                 Effect: Allow
@@ -102,24 +86,3 @@ Resources:
                   - - 'arn:aws:s3:::'
                     - !Ref 'SourceBucket'
                     - /*
-  CodeBuildVPC:
-    Type: AWS::EC2::VPC
-    Properties:
-      CidrBlock: 10.0.0.0/16
-      EnableDnsSupport: 'true'
-      EnableDnsHostnames: 'true'
-      Tags:
-        - Key: name
-          Value: codebuild
-  CodeBuildSubnet:
-    Type: AWS::EC2::Subnet
-    Properties:
-      VpcId:
-        Ref: CodeBuildVPC
-      CidrBlock: 10.0.1.0/24
-  CodeBuildSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupName: Codebuild Internet Group
-      GroupDescription: 'CodeBuild SecurityGroup'
-      VpcId: !Ref CodeBuildVPC
