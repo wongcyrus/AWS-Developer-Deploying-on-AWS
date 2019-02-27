@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Metadata: 
+  License: Apache-2.0
+Description: Deploying on AWS Stack Beanstalk
+Parameters:
+  SourceBucket:
+    Type: String
+    Description: Source Bucket with nested cloudformation template
+  PlatformArn:
+    Type: String
+Resources:
+  CodeCommit:
+    Type: AWS::CodeCommit::Repository
+    Properties:
+      RepositoryName: edX-Deploying
+      RepositoryDescription: edX-Deploying
+Outputs:
+  GitCloneUrlHttp:
+    Value: !GetAtt CodeCommit.CloneUrlHttp

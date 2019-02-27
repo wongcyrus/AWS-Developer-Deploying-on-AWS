@@ -6,13 +6,6 @@ Parameters:
   SourceBucket:
     Type: String
     Description: Source Bucket with nested cloudformation template
-  Password:
-    NoEcho: 'true'
-    Type: String
-    Description: New account password
-    MinLength: '1'
-    MaxLength: '41'
-    ConstraintDescription: the password must be between 1 and 41 characters
   PlatformArn:
     Type: String
 Resources:
