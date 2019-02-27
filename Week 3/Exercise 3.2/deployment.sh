@@ -4,11 +4,11 @@ SourceBucket=sourcebucketname$AWSAccountId
 aws s3api create-bucket --bucket $SourceBucket
 sleep 5
 aws s3 sync . s3://$SourceBucket --exclude "*" --include "*.yaml"
-aws cloudformation create-stack --stack-name edx-project-codebuild-unittest-stack --template-body file://codebuild.yaml \
+aws cloudformation create-stack --stack-name edx-project-codebuild-prepare-stack --template-body file://codebuild.yaml \
 --capabilities CAPABILITY_NAMED_IAM \
 --parameters ParameterKey=SourceBucket,ParameterValue=$SourceBucket \
 ParameterKey=CodeCommitRepoName,ParameterValue=edX-Deploying \
-ParameterKey=CodeBuildProjectName,ParameterValue=UnitTests
+ParameterKey=CodeBuildProjectName,ParameterValue=Prepare
 
-aws cloudformation wait stack-create-complete --stack-name edx-project-codebuild-unittest-stack
-echo "CodeBuild Unittest Stack created!"
+aws cloudformation wait stack-create-complete --stack-name edx-project-codebuild-prepare-stack
+echo "CodeBuild Prepare Stack created!"
