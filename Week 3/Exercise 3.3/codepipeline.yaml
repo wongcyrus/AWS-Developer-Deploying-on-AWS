@@ -99,7 +99,8 @@ Resources:
           Configuration:
             ApplicationName: TESTApplication
             DeploymentGroupName: TESTDeploymentGroup  
-          InputArtifacts: MyAppPre
+          InputArtifacts: 
+          - Name: MyAppPre
           Name: TestDeploy
           OutputArtifacts: []
           RunOrder: 1 
