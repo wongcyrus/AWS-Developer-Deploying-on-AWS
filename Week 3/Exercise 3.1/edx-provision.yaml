@@ -312,7 +312,7 @@ Resources:
         - Key: CodeDeployInstance
           Value: "TESTWebServer"
         - Key: Owner
-          Value: "YourName"          
+          Value: "RANDOMCODE"          
       UserData:
         Fn::Base64:
           !Sub |

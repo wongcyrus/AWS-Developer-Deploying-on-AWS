@@ -294,7 +294,10 @@ Resources:
         - arn:aws:iam::aws:policy/AmazonRDSFullAccess
         - arn:aws:iam::aws:policy/IAMFullAccess
         - arn:aws:iam::aws:policy/AWSCodeDeployFullAccess
-      RoleName: cloudformation-provision-role
+      RoleName: !Join
+        - '-'
+        -  - !Ref 'AWS::StackName'
+           - CloudFormation
       Policies:
       - PolicyDocument:
           Statement:
