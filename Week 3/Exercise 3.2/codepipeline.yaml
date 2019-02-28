@@ -67,7 +67,7 @@ Resources:
           - Name: !Join
             - '-'
             - - !Ref 'AWS::StackName'
-              - BuildArtifact
+              - SourceArtifact
           Name: Prepare
           OutputArtifacts:
           - Name: MyAppPre
@@ -86,8 +86,7 @@ Resources:
           InputArtifacts:
           - Name: MyAppPre
           Name: ProvisionTestEnvironment
-          OutputArtifacts: [
-            ]
+          OutputArtifacts: []
           RunOrder: 2         
       ArtifactStore: 
         Type: S3
