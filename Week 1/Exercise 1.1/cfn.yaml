@@ -13,6 +13,8 @@ Parameters:
     MinLength: '1'
     MaxLength: '41'
     ConstraintDescription: the password must be between 1 and 41 characters
+  DefaultSubnetId:
+    Type: AWS::EC2::Subnet::Id
 Resources:
   IAMStack:  
     Type: AWS::CloudFormation::Stack
@@ -21,11 +23,6 @@ Resources:
       TimeoutInMinutes: 5
       Parameters: 
         Password: !Ref Password
-  VPCStack:  
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: !Sub 'https://s3.amazonaws.com/${SourceBucket}/vpc.yaml' 
-      TimeoutInMinutes: 5
 
   EdxProjectCloud9:      
     Type: AWS::Cloud9::EnvironmentEC2
@@ -35,7 +32,7 @@ Resources:
       AutomaticStopTimeMinutes: 30
       InstanceType: t2.micro
       Name: DeployingOnAWS
-      SubnetId: !GetAtt VPCStack.Outputs.PublicSubnet1      
+      SubnetId: !Ref DefaultSubnetId      
       
 Outputs:
   EdxProjectCloud9:

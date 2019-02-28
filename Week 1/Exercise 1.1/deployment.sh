@@ -4,9 +4,13 @@ SourceBucket=sourcebucketname$AWSAccountId
 aws s3api create-bucket --bucket $SourceBucket
 sleep 5
 aws s3 sync . s3://$SourceBucket --exclude "*" --include "*.yaml"
+DefaultSubnetId=$(aws ec2 describe-subnets --query 'Subnets[?DefaultForAz==`true`]' | jq .[0].SubnetId)
+
 aws cloudformation create-stack --stack-name edx-project-stack --template-body file://cfn.yaml \
 --capabilities CAPABILITY_NAMED_IAM \
---parameters ParameterKey=Password,ParameterValue=P@ssw0rd ParameterKey=SourceBucket,ParameterValue=$SourceBucket 
+--parameters ParameterKey=Password,ParameterValue=P@ssw0rd ParameterKey=SourceBucket,ParameterValue=$SourceBucket  \
+ParameterKey=DefaultSubnetId,ParameterValue=$DefaultSubnetId
+ 
 aws cloudformation wait stack-create-complete --stack-name edx-project-stack
 AWS_ACCESS_KEY_ID=$(aws cloudformation describe-stacks --stack-name edx-project-stack \
 --query 'Stacks[0].Outputs[?OutputKey==`AccessKey`].OutputValue' --output text)
