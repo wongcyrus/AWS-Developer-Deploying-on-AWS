@@ -24,7 +24,8 @@ Parameters:
   LatestAmiId:
     Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
     Default: '/aws/service/ami-amazon-linux-latest/amzn-ami-hvm-x86_64-ebs'    
-    
+    # Type: String
+    # Default: ami-02c6024b3d5467e4a
 Resources:
   VPC:
     Type: 'AWS::EC2::VPC'
@@ -310,6 +311,8 @@ Resources:
           Value: "TEST-WebServerInstance"
         - Key: CodeDeployInstance
           Value: "TESTWebServer"
+        - Key: Owner
+          Value: "YourName"          
       UserData:
         Fn::Base64:
           !Sub |

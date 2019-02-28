@@ -92,4 +92,23 @@ Resources:
                   - - 'arn:aws:s3:::'
                     - !Ref 'SourceBucket'
                     - /*
+              - Action:
+                - ssm:GetParameters
+                Effect: Allow
+                Resource: '*'
+              - Action:
+                - kms:GenerateDataKey*
+                - kms:Encrypt
+                - kms:Decrypt
+                Effect: Allow
+                Resource:
+                - !Join
+                  - ':'
+                  - - arn:aws:kms
+                    - !Ref 'AWS::Region'
+                    - !Ref 'AWS::AccountId'
+                    - !Join
+                      - /
+                      - - alias
+                        - aws/ssm    
 

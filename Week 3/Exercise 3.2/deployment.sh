@@ -1,6 +1,9 @@
 export AWS_DEFAULT_REGION=us-east-1
 AWSAccountId=$(aws sts get-caller-identity --query 'Account' --output text)
 SourceBucket=sourcebucketname$AWSAccountId
+
+# aws ssm put-parameter --name "TEST-DATABASE-MASTER-PASSWORD" --value 'Passw0rd' --type "SecureString"
+
 # aws s3api create-bucket --bucket $SourceBucket
 # sleep 5
 # aws s3 sync . s3://$SourceBucket --exclude "*" --include "*.yaml"

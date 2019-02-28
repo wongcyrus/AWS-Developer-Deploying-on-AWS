@@ -4,6 +4,7 @@ SourceBucket=sourcebucketname$AWSAccountId
 aws s3api create-bucket --bucket $SourceBucket
 sleep 5
 aws s3 sync . s3://$SourceBucket --exclude "*" --include "*.yaml"
+sudo yum install jq -y
 DefaultSubnetId=$(aws ec2 describe-subnets --query 'Subnets[?DefaultForAz==`true`]' | jq .[0].SubnetId)
 
 aws cloudformation create-stack --stack-name edx-project-stack --template-body file://cfn.yaml \

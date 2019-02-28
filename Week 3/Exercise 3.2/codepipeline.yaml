@@ -83,6 +83,7 @@ Resources:
             RoleArn: !GetAtt CloudFormationTrustRole.Arn
             StackName: TEST-Stack
             TemplatePath: MyAppPre::Templates/edx-provision.yaml
+            TemplateConfiguration: MyAppPre::Templates/edx-provision-configuration.json
           InputArtifacts:
           - Name: MyAppPre
           Name: ProvisionTestEnvironment
@@ -187,7 +188,7 @@ Resources:
             Resource:
             - !GetAtt
               - CloudFormationTrustRole
-              - Arn                    
+              - Arn
         PolicyName: !Join
           - '-'
           - - !Ref 'AWS::StackName'
@@ -294,4 +295,43 @@ Resources:
         - arn:aws:iam::aws:policy/IAMFullAccess
         - arn:aws:iam::aws:policy/AWSCodeDeployFullAccess
       RoleName: cloudformation-provision-role
+      Policies:
+      - PolicyDocument:
+          Statement:
+          - Action:
+            - iam:CreateRole
+            - iam:AttachRolePolicy
+            - iam:PutRolePolicy
+            - iam:PassRole
+            - iam:DetachRolePolicy
+            - iam:ListRolePolicies
+            - iam:GetRole
+            - iam:DeleteRolePolicy
+            - iam:UpdateRoleDescription
+            - iam:ListRoles
+            - iam:DeleteRole
+            - iam:GetRolePolicy
+            - iam:CreateInstanceProfile
+            - iam:AddRoleToInstanceProfile
+            - iam:DeleteInstanceProfile
+            - iam:GetInstanceProfile
+            - iam:ListInstanceProfiles
+            - iam:ListInstanceProfilesForRole
+            - iam:RemoveRoleFromInstanceProfile
+            Effect: Allow
+            Resource:
+            - !Sub "arn:aws:iam::*:role/${AWS::StackName}*"
+            - !Sub "arn:aws:iam::*:instance-profile/${AWS::StackName}*"
+          - Action:
+            - ssm:GetParameters
+            - autoscaling:*
+            - ec2:*
+            - codedeploy:*
+            - elasticloadbalancing:*
+            Effect: Allow
+            Resource: '*'
+        PolicyName: !Join
+          - '-'
+          -  - !Ref 'AWS::StackName'
+             - CloudFormationRolePolicy
       
