@@ -180,7 +180,14 @@ Resources:
                 - !Join
                   - /
                   - - alias
-                    - aws/s3            
+                    - aws/s3  
+          - Action:
+            - iam:PassRole
+            Effect: Allow
+            Resource:
+            - !GetAtt
+              - CloudFormationTrustRole
+              - Arn                    
         PolicyName: !Join
           - '-'
           - - !Ref 'AWS::StackName'
