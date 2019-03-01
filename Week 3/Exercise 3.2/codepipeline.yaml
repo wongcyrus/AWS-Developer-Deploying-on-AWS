@@ -288,8 +288,6 @@ Resources:
             - cloudformation.amazonaws.com
       Path: /
       ManagedPolicyArns:
-        - String
-      ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AmazonEC2FullAccess
         - arn:aws:iam::aws:policy/AmazonRDSFullAccess
         - arn:aws:iam::aws:policy/IAMFullAccess

@@ -1,19 +1,17 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Metadata: 
   License: Apache-2.0
-Description: Deploying on AWS Stack CodeBuild
+Description: Deploying on AWS Stack CodeBuild UnitTests
 Parameters:
   SourceBucket:
     Type: String
   CodeCommitRepoName:
     Type: String
-  CodeBuildProjectName:
-    Type: String     
 Resources:
   CodeBuildProject:
     Type: AWS::CodeBuild::Project
     Properties:
-      Name: !Ref CodeBuildProjectName
+      Name: UnitTests
       ServiceRole: !Ref CodeBuildRole
       Environment:
         Type: LINUX_CONTAINER

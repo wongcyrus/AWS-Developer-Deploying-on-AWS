@@ -7,8 +7,7 @@ aws s3 sync . s3://$SourceBucket --exclude "*" --include "*.yaml"
 aws cloudformation create-stack --stack-name edx-project-codebuild-unittest-stack --template-body file://codebuild.yaml \
 --capabilities CAPABILITY_NAMED_IAM \
 --parameters ParameterKey=SourceBucket,ParameterValue=$SourceBucket \
-ParameterKey=CodeCommitRepoName,ParameterValue=edX-Deploying \
-ParameterKey=CodeBuildProjectName,ParameterValue=UnitTests
+ParameterKey=CodeCommitRepoName,ParameterValue=edX-Deploying 
 
 aws cloudformation wait stack-create-complete --stack-name edx-project-codebuild-unittest-stack
 echo "CodeBuild Unittest Stack created!"

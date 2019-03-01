@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Metadata: 
   License: Apache-2.0
-Description: Deploying on AWS Stack CodeBuild Prepare
+Description: Deploying on AWS Stack CodeBuild AcceptanceTest
 Parameters:
   SourceBucket:
     Type: String
@@ -11,7 +11,7 @@ Resources:
   CodeBuildProject:
     Type: AWS::CodeBuild::Project
     Properties:
-      Name: Prepare
+      Name: AcceptanceTest
       ServiceRole: !Ref CodeBuildRole
       Environment:
         Type: LINUX_CONTAINER
@@ -28,7 +28,7 @@ Resources:
             - !Ref 'AWS::Region'
             - '.amazonaws.com/v1/repos/'
             - !Ref 'CodeCommitRepoName'
-        BuildSpec: 'BuildSpecs/prepare-buildspec.yml'
+        BuildSpec: 'BuildSpecs/acctests-buildspec.yml'
       Artifacts:
         Location: !Ref 'SourceBucket'
         Name: 'build-output.zip'
@@ -51,6 +51,9 @@ Resources:
             Service: [codebuild.amazonaws.com]
         Version: '2012-10-17'
       Path: /
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess
+        - arn:aws:iam::aws:policy/AWSCloudFormationReadOnlyAccess
       Policies:
         - PolicyName: CodeBuildAccess
           PolicyDocument:
