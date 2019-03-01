@@ -17,9 +17,6 @@ Resources:
         Type: LINUX_CONTAINER
         ComputeType: BUILD_GENERAL1_SMALL
         Image: amazonlinux:2017.09
-        EnvironmentVariables:
-          - Name: ENV_PREFIX
-            Value: TEST-
       Source:
         Type: CODECOMMIT
         Location: !Join

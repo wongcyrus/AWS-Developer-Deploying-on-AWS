@@ -104,6 +104,24 @@ Resources:
           Name: TestDeploy
           OutputArtifacts: []
           RunOrder: 1 
+      - Name: AcceptanceTest
+        Actions:
+        - ActionTypeId:
+            Category: Build
+            Owner: AWS
+            Provider: CodeBuild
+            Version: 1
+          Configuration:
+            ProjectName: AcceptanceTest
+          InputArtifacts:
+          - Name: !Join
+            - '-'
+            - - !Ref 'AWS::StackName'
+              - SourceArtifact
+          Name: AcceptanceTest
+          OutputArtifacts:
+          - Name: MyAppAccTests
+          RunOrder: 1 
       ArtifactStore: 
         Type: S3
         Location: !Ref SourceBucket
@@ -177,6 +195,14 @@ Resources:
                 - !Ref 'AWS::Region'
                 - !Ref 'AWS::AccountId'
                 - project/Prepare   
+            - !Join
+              - ':'
+              - - arn
+                - aws
+                - codebuild
+                - !Ref 'AWS::Region'
+                - !Ref 'AWS::AccountId'
+                - project/AcceptanceTest                
           - Action:
             - ssm:GetParameter
             - cloudformation:*
@@ -204,6 +230,41 @@ Resources:
             - !GetAtt
               - CloudFormationTrustRole
               - Arn
+          - Action:
+            - codedeploy:CreateDeployment
+            - codedeploy:GetApplicationRevision
+            - codedeploy:GetDeployment
+            - codedeploy:GetDeploymentConfig
+            - codedeploy:RegisterApplicationRevision
+            Effect: Allow
+            Resource:
+            - !Join
+              - ':'
+              - - arn
+                - aws
+                - codedeploy
+                - !Ref 'AWS::Region'
+                - !Ref 'AWS::AccountId'
+                - deploymentgroup
+                - '*'
+            - !Join
+              - ':'
+              - - arn
+                - aws
+                - codedeploy
+                - !Ref 'AWS::Region'
+                - !Ref 'AWS::AccountId'
+                - application
+                - '*'
+            - !Join
+              - ':'
+              - - arn
+                - aws
+                - codedeploy
+                - !Ref 'AWS::Region'
+                - !Ref 'AWS::AccountId'
+                - deploymentconfig
+                - '*'                      
         PolicyName: !Join
           - '-'
           - - !Ref 'AWS::StackName'

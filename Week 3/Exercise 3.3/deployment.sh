@@ -11,4 +11,4 @@ aws cloudformation update-stack --stack-name edx-project-codepipeline-stack --te
 --parameters ParameterKey=SourceBucket,ParameterValue=$SourceBucket \
 ParameterKey=CodeCommitRepoName,ParameterValue=edX-Deploying
 aws cloudformation wait  stack-update-complete --stack-name edx-project-codepipeline-stack
-echo "CodePipeline Stack updated!"
+echo "CodePipeline Stack updated for Exercise 3.3!"
