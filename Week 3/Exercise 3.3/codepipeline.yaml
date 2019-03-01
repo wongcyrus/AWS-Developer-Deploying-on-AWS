@@ -204,6 +204,41 @@ Resources:
             - !GetAtt
               - CloudFormationTrustRole
               - Arn
+          - Action:
+            - codedeploy:CreateDeployment
+            - codedeploy:GetApplicationRevision
+            - codedeploy:GetDeployment
+            - codedeploy:GetDeploymentConfig
+            - codedeploy:RegisterApplicationRevision
+            Effect: Allow
+            Resource:
+            - !Join
+              - ':'
+              - - arn
+                - aws
+                - codedeploy
+                - !Ref 'AWS::Region'
+                - !Ref 'AWS::AccountId'
+                - deploymentgroup
+                - '*'
+            - !Join
+              - ':'
+              - - arn
+                - aws
+                - codedeploy
+                - !Ref 'AWS::Region'
+                - !Ref 'AWS::AccountId'
+                - application
+                - '*'
+            - !Join
+              - ':'
+              - - arn
+                - aws
+                - codedeploy
+                - !Ref 'AWS::Region'
+                - !Ref 'AWS::AccountId'
+                - deploymentconfig
+                - '*'                    
         PolicyName: !Join
           - '-'
           - - !Ref 'AWS::StackName'
