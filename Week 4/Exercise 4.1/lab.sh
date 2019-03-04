@@ -6,8 +6,8 @@ git checkout dev
 git add *
 git commit -m "added edx-final template"
 git push origin dev
-aws ssm put-parameter --name "FINAL-DATABASE-MASTER-PASSWORD" --value 'P@ssw0rd' --type "SecureString"
-aws ssm put-parameter --name "FINAL-DATABASE-WEB-USER-PASSWORD" --value 'P@ssw0rd' --type "SecureString"
+aws ssm put-parameter --name "FINAL-DATABASE-MASTER-PASSWORD" --value 'Passw0rd' --type "SecureString"
+aws ssm put-parameter --name "FINAL-DATABASE-WEB-USER-PASSWORD" --value 'Passw0rd' --type "SecureString"
 cd ~/environment
 git checkout -b final
 git push origin final
