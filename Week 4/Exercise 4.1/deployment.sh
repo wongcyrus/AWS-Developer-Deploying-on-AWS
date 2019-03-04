@@ -5,16 +5,16 @@ SourceBucket=sourcebucketname$AWSAccountId
 aws s3api create-bucket --bucket $SourceBucket
 sleep 5
 aws s3 sync . s3://$SourceBucket --exclude "*" --include "*.yaml"
-aws cloudformation create-stack --stack-name edx-project-codebuild-prepare-stack --template-body file://codebuild.yaml \
+aws cloudformation create-stack --stack-name edx-project-codebuild-finalprepare-stack --template-body file://codebuild.yaml \
 --capabilities CAPABILITY_NAMED_IAM \
 --parameters ParameterKey=SourceBucket,ParameterValue=$SourceBucket \
 ParameterKey=CodeCommitRepoName,ParameterValue=edX-Deploying 
-aws cloudformation wait stack-create-complete --stack-name edx-project-codebuild-prepare-stack
-echo "CodeBuild Prepare Stack created!"
+aws cloudformation wait stack-create-complete --stack-name edx-project-codebuild-finalprepare-stack
+echo "CodeBuild Final Prepare Stack created!"
 
-aws cloudformation update-stack --stack-name edx-project-codepipeline-stack --template-body file://codepipeline.yaml \
+aws cloudformation update-stack --stack-name edx-project-finalcodepipeline-stack --template-body file://codepipeline.yaml \
 --capabilities CAPABILITY_NAMED_IAM \
 --parameters ParameterKey=SourceBucket,ParameterValue=$SourceBucket \
 ParameterKey=CodeCommitRepoName,ParameterValue=edX-Deploying
-aws cloudformation wait  stack-update-complete --stack-name edx-project-codepipeline-stack
-echo "CodePipeline Stack updated for Exercise 3.2!"
+aws cloudformation wait  stack-create-complete --stack-name edx-project-finalcodepipeline-stack
+echo "Final CodePipeline Stack created for Exercise 4.1!"

@@ -23,7 +23,8 @@ Parameters:
     Type: String
   LatestAmiId:
     Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
-    Default: '/aws/service/ami-amazon-linux-latest/amzn-ami-hvm-x86_64-ebs'    
+    Default: '/aws/service/ami-amazon-linux-latest/amzn-ami-hvm-x86_64-ebs'        
+
 Resources:
   VPC:
     Type: 'AWS::EC2::VPC'
@@ -172,7 +173,7 @@ Resources:
       VpcId: !Ref VPC
       Tags:
         - Key: Name
-          Value: TEST-Web-Security-Group
+          Value: FINAL-Web-Security-Group
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: '80'
@@ -189,7 +190,7 @@ Resources:
       VpcId: !Ref VPC
       Tags:
         - Key: Name
-          Value: TEST-DB-Security-Group
+          Value: FINAL-DB-Security-Group
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: '3306'
@@ -221,7 +222,7 @@ Resources:
         - !Ref DBSecurityGroup
       Tags:
         - Key: Name
-          Value: TEST-DBInstance
+          Value: FINAL-DBInstance
 
   CodeDeployRole: 
     Type: "AWS::IAM::Role"
@@ -243,7 +244,7 @@ Resources:
   Application:
     Type: 'AWS::CodeDeploy::Application'
     Properties:
-      ApplicationName: 'TESTApplication'
+      ApplicationName: 'FINALApplication'
 
   DeploymentConfig:
     Type: 'AWS::CodeDeploy::DeploymentConfig'
@@ -257,10 +258,10 @@ Resources:
     Properties:
       ApplicationName: !Ref Application
       DeploymentConfigName: !Ref DeploymentConfig
-      DeploymentGroupName: 'TESTDeploymentGroup'
+      DeploymentGroupName: 'FINALDeploymentGroup'
       Ec2TagFilters:
         - Key: CodeDeployInstance
-          Value: TESTWebServer
+          Value: FINALWebServer
           Type: KEY_AND_VALUE
       ServiceRoleArn: !GetAtt CodeDeployRole.Arn
 
@@ -306,11 +307,9 @@ Resources:
             - !Ref WebSecurityGroup
       Tags:
         - Key: Name
-          Value: "TEST-WebServerInstance"
+          Value: "FINAL-WebServerInstance"
         - Key: CodeDeployInstance
-          Value: "TESTWebServer"
-        - Key: Owner
-          Value: "RANDOMCODE"          
+          Value: "FINALWebServer"
       UserData:
         Fn::Base64:
           !Sub |
@@ -360,8 +359,8 @@ Outputs:
     Description: The hostname for the RDS instance
     Value: !GetAtt LabDBInstance.Endpoint.Address
 
-  TESTWebServerInstanceId:
-    Description: The TESTWebServer InstanceId Id
+  FINALWebServerInstanceId:
+    Description: The FINALWebServer InstanceId Id
     Value: !Ref WebServerInstance
 
 
