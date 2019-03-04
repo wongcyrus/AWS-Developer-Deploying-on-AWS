@@ -1,0 +1,57 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Metadata: 
+  License: Apache-2.0
+Description: Deploying on AWS Stack CodeBuild FinalPrepare
+Parameters:
+  SourceBucket:
+    Type: String
+  CodeCommitRepoName:
+    Type: String
+  Email:
+    Type: String
+Resources:
+  PipelineEventRule:
+    Type: "AWS::Events::Rule"
+    Properties:
+      Description: "Trigger notifications based on pipeline state changes"
+      EventPattern:
+        source:
+          - "aws.codepipeline"
+        detail-type:
+          - "CodePipeline Pipeline Execution State Change"
+        detail:
+          state:
+            - "FAILED"
+            - "STARTED"
+            - "SUCCEEDED"
+          pipeline:
+            - ci-cd-pipeline
+      State: "ENABLED"
+      Targets:
+        -
+          Arn: !Ref PipelineSNSTopic
+          Id: !Sub "${AWS::StackName}"
+  
+  PipelineSNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: "pipeline-notifications"  
+      Subscription:
+        - Endpoint: !Ref Email
+          Protocol: email
+  
+  PipelineSNSTopicPolicy:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      PolicyDocument:
+        Id: MyTopicPolicy
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+              - events.amazonaws.com
+          Action: sns:Publish
+          Resource: !Ref PipelineSNSTopic
+      Topics:
+      - !Ref PipelineSNSTopic

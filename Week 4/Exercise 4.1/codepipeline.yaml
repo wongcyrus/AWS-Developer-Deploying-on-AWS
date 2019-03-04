@@ -362,4 +362,7 @@ Resources:
           - '-'
           -  - !Ref 'AWS::StackName'
              - CloudFormationRolePolicy
+Outputs:
+  AppPipeline:
+    Value: !Ref AppPipeline             
       
