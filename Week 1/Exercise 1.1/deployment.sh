@@ -1,8 +1,7 @@
 export AWS_DEFAULT_REGION=us-east-1
 AWSAccountId=$(aws sts get-caller-identity --query 'Account' --output text)
 SourceBucket=sourcebucketname$AWSAccountId
-aws s3api create-bucket --bucket $SourceBucket
-sleep 5
+
 aws s3 sync . s3://$SourceBucket --exclude "*" --include "*.yaml"
 sudo yum install jq -y
 DefaultSubnetId=$(aws ec2 describe-subnets --query 'Subnets[?DefaultForAz==`true`]' | jq .[0].SubnetId)
