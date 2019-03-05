@@ -12,7 +12,7 @@ Resources:
         EBSEnabled: 'true'
         Iops: 0
         VolumeSize: 10
-        VolumeType: standard
+        VolumeType: gp2
       SnapshotOptions:
         AutomatedSnapshotStartHour: '0'
       AccessPolicies:
@@ -338,6 +338,24 @@ Resources:
       Action: lambda:InvokeFunction
       Principal: !Sub logs.${AWS::Region}.amazonaws.com
       SourceAccount: !Sub ${AWS::AccountId}            
+
+  SubscriptionFilter:
+    Type: AWS::Logs::SubscriptionFilter
+    DependsOn: LogStreamerInvokePermission
+    Properties:
+      DestinationArn:
+        Fn::GetAtt:
+        - LogStreamer
+        - Arn
+      FilterPattern: ''
+      LogGroupName:
+        Ref: LogGroup
+
+  LogGroup: 
+    Type: AWS::Logs::LogGroup
+    Properties: 
+      LogGroupName: FlaskApp-Frontends-access-log
+      RetentionInDays: 7        
 Outputs:
   DomainArn:
     Value: !GetAtt ElasticsearchDomain.DomainArn
