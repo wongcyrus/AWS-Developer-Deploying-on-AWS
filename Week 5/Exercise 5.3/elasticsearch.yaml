@@ -87,7 +87,7 @@ Resources:
         Fn::GetAtt:
         - LogStreamer
         - Arn
-      FilterPattern: [remote_addr, delimiter, remote_user, timestamp, request, status, body_bytes_sent, http_referrer, http_user_agent, http_x_forwarded_for]
+      FilterPattern: "[remote_addr, delimiter, remote_user, timestamp, request, status, body_bytes_sent, http_referrer, http_user_agent, http_x_forwarded_for]"
       LogGroupName:
         Ref: LogGroup
 
