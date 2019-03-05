@@ -5,4 +5,6 @@ cd "Exercise 5.1"
 sh "deployment.sh"
 cd "../Exercise 5.2"
 sh "lab.sh"
+echo "Wait for TEST-Stack Update! "
+sleep 3000
 sh "install_cloudwatch.sh"

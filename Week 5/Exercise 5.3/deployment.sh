@@ -9,7 +9,8 @@ aws s3 cp code.zip s3://$SourceBucket
 aws logs delete-log-group --log-group-name FlaskApp-Frontends-access-log
 rm code.zip
 aws cloudformation create-stack --stack-name edx-project-es-stack --template-body file://elasticsearch.yaml \
---capabilities CAPABILITY_NAMED_IAM 
+--capabilities CAPABILITY_NAMED_IAM \
+--parameters ParameterKey=SourceBucket,ParameterValue=$SourceBucket
 
 aws cloudformation wait stack-create-complete --stack-name edx-project-es-stack
 echo "Elasticsearch Stack created!"
