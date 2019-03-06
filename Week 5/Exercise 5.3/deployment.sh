@@ -15,4 +15,4 @@ aws cloudformation create-stack --stack-name edx-project-es-stack --template-bod
 --parameters ParameterKey=SourceBucket,ParameterValue=$SourceBucket
 
 aws cloudformation wait stack-create-complete --stack-name edx-project-es-stack
-echo "Elasticsearch Stack created!"
+echo -e "${RED}Exercise 5.3 Elasticsearch Stack created!${NOCOLOR}" 

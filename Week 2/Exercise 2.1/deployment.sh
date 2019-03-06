@@ -11,3 +11,4 @@ GitCloneUrlHttp=$(aws cloudformation describe-stacks --stack-name edx-project-co
 export GitCloneUrlHttp=GitCloneUrlHttp
 echo "Git Clone Url"
 echo "$GitCloneUrlHttp"
+echo -e "${RED}Exercise 2.1 Codecommit Stack created!${NOCOLOR}"   

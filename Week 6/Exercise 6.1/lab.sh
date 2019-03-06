@@ -18,3 +18,4 @@ git push origin dev
 git checkout final
 git merge dev
 git push origin final
+echo -e "${RED}Exercise 6.1 Completed Git tasks!${NOCOLOR}" 

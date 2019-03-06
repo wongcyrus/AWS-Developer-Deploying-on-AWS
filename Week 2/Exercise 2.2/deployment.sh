@@ -9,4 +9,4 @@ aws cloudformation create-stack --stack-name edx-project-codebuild-unittest-stac
 ParameterKey=CodeCommitRepoName,ParameterValue=edX-Deploying 
 
 aws cloudformation wait stack-create-complete --stack-name edx-project-codebuild-unittest-stack
-echo "CodeBuild Unittest Stack created!"
+echo -e "${RED}Exercise 2.2 CodeBuild Unittest Stack created!${NOCOLOR}"   

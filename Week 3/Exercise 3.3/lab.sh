@@ -5,3 +5,4 @@ unzip -o ~/ex-codedeploy.zip
 git add *
 git commit -m "codedeploy exercise"
 git push origin dev
+echo -e "${RED}Exercise 3.3 Completed Git Tasks!${NOCOLOR}"   

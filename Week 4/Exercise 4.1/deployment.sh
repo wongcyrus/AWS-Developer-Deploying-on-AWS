@@ -8,11 +8,11 @@ aws cloudformation create-stack --stack-name edx-project-codebuild-finalprepare-
 --parameters ParameterKey=SourceBucket,ParameterValue=$SourceBucket \
 ParameterKey=CodeCommitRepoName,ParameterValue=edX-Deploying 
 aws cloudformation wait stack-create-complete --stack-name edx-project-codebuild-finalprepare-stack
-echo "CodeBuild Final Prepare Stack created!"
+echo -e "${RED}Exercise 4.1 CodeBuild Final Prepare Stack created!${NOCOLOR}"  
 
 aws cloudformation create-stack --stack-name edx-project-finalcodepipeline-stack --template-body file://codepipeline.yaml \
 --capabilities CAPABILITY_NAMED_IAM \
 --parameters ParameterKey=SourceBucket,ParameterValue=$SourceBucket \
 ParameterKey=CodeCommitRepoName,ParameterValue=edX-Deploying
 aws cloudformation wait stack-create-complete --stack-name edx-project-finalcodepipeline-stack
-echo "Final CodePipeline Stack created for Exercise 4.1!"
+echo -e "${RED}Exercise 4.1 Final CodePipeline Stack created!${NOCOLOR}"  

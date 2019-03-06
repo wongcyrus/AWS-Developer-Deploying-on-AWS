@@ -4,3 +4,4 @@ unzip -o ~/ex-acctests.zip
 git add *
 git commit -m "added acctests-buildspec.yml"
 git push origin dev
+echo -e "${RED}Exercise 3.4 Completed Git Tasks!${NOCOLOR}"  

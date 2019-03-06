@@ -11,3 +11,4 @@ sudo yum install jq -y
 public_ip=$(aws ec2 describe-instances --instance-id $instance_id | jq -r .Reservations[].Instances[].PublicIpAddress)
 echo $public_ip
 ssh -o StrictHostKeyChecking=no -i ~/ssh-keys/edx-temp-key ec2-user@$public_ip 'bash -s' < local_script.sh
+echo -e "${RED}Exercise 5.2 Installed CloudWatch Logs Agent!${NOCOLOR}"  

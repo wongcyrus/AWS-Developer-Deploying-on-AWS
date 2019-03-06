@@ -8,4 +8,4 @@ aws cloudformation create-stack --stack-name edx-project-codepipeline-stack --te
 --parameters ParameterKey=SourceBucket,ParameterValue=$SourceBucket \
 ParameterKey=CodeCommitRepoName,ParameterValue=edX-Deploying 
 aws cloudformation wait stack-create-complete --stack-name edx-project-codepipeline-stack
-echo "CodePipeline Stack created!"
+echo -e "${RED}Exercise 2.3 CodePipeline Stack created!${NOCOLOR}"   

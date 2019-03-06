@@ -14,3 +14,4 @@ yes | cp -rf "AWS-Developer-Deploying-on-AWS/Week 5/Exercise 5.2/edx-provision.y
 git add *
 git commit -m "adding SSH capabilities to the TEST-WebServerInstance"
 git push origin dev
+echo -e "${RED}Exercise 5.2 Completed Git Tasks!${NOCOLOR}"  

@@ -7,3 +7,4 @@ aws cloudformation create-stack --stack-name TEST-Stack --template-body file://e
 --parameters ParameterKey=DBInstanceMasterPassword,ParameterValue=Passw0rd 
 aws cloudformation wait stack-create-complete --stack-name TEST-Stack
 echo "TEST-Stack created!"
+echo -e "${RED}Exercise 3.1 TEST-Stack created!${NOCOLOR}"   

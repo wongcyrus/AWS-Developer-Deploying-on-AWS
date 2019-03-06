@@ -18,4 +18,4 @@ AWS_SECRET_ACCESS_KEY=$(aws cloudformation describe-stacks --stack-name edx-proj
 --query 'Stacks[0].Outputs[?OutputKey==`SecretKey`].OutputValue' --output text)
 export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
 export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-echo "IAM and Cloud9 Stack created!"
+echo -e "${RED}Exercise 1.1 IAM and Cloud9 Stack created!${NOCOLOR}"   

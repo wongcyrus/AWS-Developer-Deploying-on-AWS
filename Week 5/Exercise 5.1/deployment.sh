@@ -10,4 +10,4 @@ ParameterKey=CodeCommitRepoName,ParameterValue=edX-Deploying \
 ParameterKey=Email,ParameterValue=0123456789@stu.vtc.edu.hk
 
 aws cloudformation wait stack-create-complete --stack-name edx-project-pipeline-event-stack
-echo "Pipeline SNS and Event Stack created!"
+echo -e "${RED}Exercise 5.1 Pipeline SNS and Event Stack created!${NOCOLOR}"  

@@ -8,3 +8,4 @@ mysqladmin -u root password P@ssw0rd
 sed -i 's/REPLACE_WITH_WEB_USER_PASSWORD/P@ssw0rd/g' SetupScripts/create_schema.sql
 mysql -h localhost -u root -pP@ssw0rd < SetupScripts/create_schema.sql
 PASSWORD=P@ssw0rd python3 SetupScripts/database_populate.py
+echo -e "${RED}Exercise 1.1 Completed Setup Database${NOCOLOR}"   

@@ -5,3 +5,4 @@ git add *
 git status
 git commit -m "added codebuild buildspec for unittests"
 git push origin dev
+echo -e "${RED}Exercise 2.2 Completed Git Tasks!${NOCOLOR}"   

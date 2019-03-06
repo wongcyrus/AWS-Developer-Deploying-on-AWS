@@ -14,4 +14,4 @@ aws cloudformation wait stack-create-complete --stack-name edx-project-eb-stack
 ElasticBeanstalkUrl=$(aws cloudformation describe-stacks --stack-name edx-project-eb-stack \
 --query 'Stacks[0].Outputs[?OutputKey==`ElasticBeanstalkUrl`].OutputValue' --output text)
 export ElasticBeanstalkUrl=ElasticBeanstalkUrl
-echo "BeansTalk Stack created!"
+echo -e "${RED}Exercise 1.2 BeansTalk Stack created!${NOCOLOR}"   

@@ -20,3 +20,4 @@ git config --list
 git push origin dev
 
 # git log
+echo -e "${RED}Exercise 2.1 Completed Local Git Tasks!${NOCOLOR}"   

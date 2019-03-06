@@ -4,3 +4,4 @@ unzip -o ~/ex-cfn.zip
 git add *
 git commit -m "adding CFN to the pipeline"
 git push origin dev
+echo -e "${RED}Exercise 3.1 Completed Git Tasks!${NOCOLOR}"   

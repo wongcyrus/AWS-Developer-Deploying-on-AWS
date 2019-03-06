@@ -12,3 +12,4 @@ cd ~/environment
 git checkout -b final
 git push origin final
 # git log
+echo -e "${RED}Exercise 4.1 Completed Git Tasks!${NOCOLOR}"  
