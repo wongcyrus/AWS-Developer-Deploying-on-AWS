@@ -22,9 +22,7 @@ Resources:
         Version: 2012-10-17
         Statement:
           - Effect: Allow
-            Principal:
-              AWS:
-              - "*"
+            Principal: ["*"]
             Action:
             - es:*
             Resource: !Sub arn:aws:es:{AWS::Region}:{AWS::AccountId}:domain/application-logs/*
@@ -101,3 +99,6 @@ Outputs:
     Value: !GetAtt ElasticsearchDomain.DomainArn
   DomainEndpoint:
     Value: !GetAtt ElasticsearchDomain.DomainEndpoint
+  KibanaUrl:
+    Value: !Sub https://${ElasticsearchDomain.DomainEndpoint}/_plugin/kibana/
+    
