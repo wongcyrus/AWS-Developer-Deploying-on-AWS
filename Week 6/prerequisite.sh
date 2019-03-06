@@ -8,4 +8,5 @@ sh "lab.sh"
 echo "Wait for TEST-Stack Update!"
 sh "install_cloudwatch.sh"
 cd "../Exercise 5.3"
+sleep 1m
 sh "deployment.sh"

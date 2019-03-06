@@ -292,7 +292,7 @@ Resources:
                 - codepipeline
                 - !Ref 'AWS::Region'
                 - !Ref 'AWS::AccountId'
-                - ci-cd-pipeline
+                - final-pipeline
         PolicyName: !Join
           - '-'
           - - !Ref 'AWS::StackName'
