@@ -24,9 +24,9 @@ Resources:
         - Effect: Allow
           Principal:
             AWS: '*'
-          Action:
-          - "es:*"
-          Resource: !Sub arn:aws:es:{AWS::Region}:{AWS::AccountId}:domain/application-logs/*  
+          Action: 
+           - "es:*"
+          Resource: !Sub "arn:aws:es:${AWS::Region}:${AWS::AccountId}:domain/application-logs/*"
         
   LogStreamerRole:
     Type: 'AWS::IAM::Role'

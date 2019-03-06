@@ -262,7 +262,7 @@ Resources:
           - codepipeline
           - !Ref 'AWS::Region'
           - !Ref 'AWS::AccountId'
-          - ci-cd-pipeline
+          - final-pipeline
         Id: ProjectPipelineTarget
         RoleArn: !GetAtt 'SourceEventRole.Arn'
 
