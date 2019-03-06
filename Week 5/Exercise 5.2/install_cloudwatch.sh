@@ -1,6 +1,9 @@
-watch -n 30 aws codepipeline list-pipeline-executions --pipeline-name ci-cd-pipeline --query pipelineExecutionSummaries[0] | \
-jq '.status=="Succeeded" and .sourceRevisions[0].revisionSummary=="adding SSH capabilities to the TEST-WebServerInstance\n"' \
-| grep 'true'
+until aws codepipeline list-pipeline-executions --pipeline-name ci-cd-pipeline --query pipelineExecutionSummaries[0] | \
+jq '.status=="Succeeded" and .sourceRevisions[0].revisionSummary=="adding SSH capabilities to the TEST-WebServerInstance\n"' | grep 'true';
+do
+   echo "Keep waiting.";
+   sleep 30;
+done
 
 instance_id=$(aws cloudformation describe-stacks --stack-name TEST-Stack \
 --query 'Stacks[0].Outputs[?OutputKey==`TESTWebServerInstanceId`].OutputValue' --output text)

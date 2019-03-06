@@ -8,8 +8,8 @@ zip code.zip index.js
 aws s3 cp code.zip s3://$SourceBucket 
 rm code.zip
 
-aws logs delete-log-group --log-group-name FlaskApp-Frontends-access-log
-aws cloudformation create-stack --stack-name edx-project-es-stack --template-body file://elasticsearch.yaml \
+# aws logs delete-log-group --log-group-name FlaskApp-Frontends-access-log
+aws cloudformation update-stack --stack-name edx-project-es-stack --template-body file://elasticsearch.yaml \
 --capabilities CAPABILITY_NAMED_IAM \
 --parameters ParameterKey=SourceBucket,ParameterValue=$SourceBucket
 
