@@ -3,20 +3,6 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: "Exercise 3.1 - CloudFormation - Create RDS and VPC"
 
 Parameters:
-  DBAllocatedStorage:
-    Default: '5'
-    Description: "The size of the database (Gb)"
-    Type: Number
-    MinValue: '5'
-    MaxValue: '1024'
-    ConstraintDescription: "Must be between 5 and 1024Gb."
-  DBInstanceClass:
-    Default: db.t2.micro
-    Description: "The database instance type"
-    Type: String
-    AllowedValues:
-      - db.t2.micro
-    ConstraintDescription: "Must select a valid database instance type."
   DBInstanceMasterPassword:
     NoEcho: true
     Description: The database admin account password
@@ -208,16 +194,18 @@ Resources:
         - !Ref PrivateSubnet2
 
   LabDBInstance:
-    Type: 'AWS::RDS::DBInstance'
+    Type: AWS::RDS::DBCluster
     Properties:
-      AllocatedStorage: !Ref DBAllocatedStorage
-      DBInstanceClass: !Ref DBInstanceClass
-      Engine: MySQL
       MasterUsername: root
       MasterUserPassword: !Ref DBInstanceMasterPassword
-      MultiAZ: 'false'
+      EngineMode: serverless
+      ScalingConfiguration:
+        AutoPause: true
+        MaxCapacity: 4
+        MinCapacity: 2
+      Engine: aurora
       DBSubnetGroupName: !Ref DBSubnetGroup
-      VPCSecurityGroups:
+      VpcSecurityGroupIds:
         - !Ref DBSecurityGroup
       Tags:
         - Key: Name

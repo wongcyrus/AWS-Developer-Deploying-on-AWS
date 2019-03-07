@@ -1,0 +1,5 @@
+echo "Final All Exercises Script."
+cd "Week 6"
+sh "prerequisite.sh"
+cd "Exercise 6.1"
+sh "lab.sh"
