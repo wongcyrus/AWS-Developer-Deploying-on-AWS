@@ -8,3 +8,5 @@ do aws cloudformation delete-stack --stack-name $stack --output text; done
 
 SourceBucket=sourcebucketname$AWSAccountId
 aws s3 rb s3://$SourceBucket --force
+
+aws logs delete-log-group --log-group-name FlaskApp-Frontends-access-log
