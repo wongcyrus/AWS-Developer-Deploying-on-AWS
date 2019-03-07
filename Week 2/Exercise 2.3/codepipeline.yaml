@@ -58,7 +58,6 @@ Resources:
         Type: S3
         Location: !Ref SourceBucket
 
-            
   CodePipelineTrustRole:
     Type: AWS::IAM::Role 
     Properties:
